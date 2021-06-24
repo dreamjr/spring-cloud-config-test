@@ -11,17 +11,18 @@ spring:
             allowedMethods:
               - GET
               - POST
-      httpclient:
-        wiretap: true
-        connect-timeout: 1000
-        response-timeout: 5s
-      httpserver:
-        wiretap: true
+              - OPTIONS
+        httpclient:
+          connect-timeout: 10000
+          response-timeout: 50s
+          wiretap: true
+        httpserver:
+          wiretap: true
       routes:
-        - id: vcapp-api-instance
-          uri: lb://vcapp-api-instance
+        - id: vcAppApi
+          uri: lb://vcAppApi
           predicates:
-            - Path=/myvc/**
+            - Path=/api/**
           filters:
             - CustomAuthFilter
             - name: CircuitBreaker
@@ -29,19 +30,39 @@ spring:
                 name: vc-api-fallback
                 fallbackuri: forward:/vcApiFallBack
         - id: demo
-          uri: lb://demo
+          uri: http://localhost:8710
           predicates:
             - Path=/demo/**
-          filters:
+          filters:            
             - CustomAuthFilter
             - name: Hystrix
               args:
                 name: vc-api-fallback
                 fallbackuri: forward:/vcApiFallBack
-        - id: vc-msc
+        - id: test
+          uri: lb://test
+          predicates:
+            - Path=/test/**
+          filters:            
+            - CustomAuthFilter
+            - name: Hystrix
+              args:
+                name: vc-api-fallback
+                fallbackuri: forward:/vcApiFallBack
+        - id: vse_app
+          uri: http://192.168.0.8:8710/
+          predicates:
+            - Path=/vse_app/**
+          filters:            
+            - CustomAuthFilter
+            - name: Hystrix
+              args:
+                name: vc-api-fallback
+                fallbackuri: forward:/vcApiFallBack
+        - id: vc_msc
           uri: lb://VC-MSC
           predicates:
-            - Path=/msc/**
+            - Path=/vc_msc/**
           filters:
             - RewritePath=/vc_msc/(?<path>.*), /$\{path}
             - CustomAuthFilter
