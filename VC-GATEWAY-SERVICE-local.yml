@@ -19,7 +19,7 @@ spring:
         httpserver:
           wiretap: true
       routes:
-        - id: vse_appddd
+        - id: vse_app
           uri: http://192.168.0.41:8710/
           predicates:
             - Path=/vse_app/**
