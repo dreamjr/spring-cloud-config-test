@@ -54,7 +54,7 @@ spring:
           predicates:
             - Path=/vse_app/**
           filters:            
-            - CustomAuthFilter
+            - CustomNewAuthFilter
             - name: Hystrix
               args:
                 name: vc-api-fallback
