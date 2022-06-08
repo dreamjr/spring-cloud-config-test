@@ -84,7 +84,7 @@ spring:
                 name: vc-api-fallback
                 fallbackuri: forward:/vcApiFallBack 
         - id: mvc-app
-          uri: http://52.79.174.140:8101/
+          uri: http://localhost:8101/
           predicates:
             - Path=/mvc_app/**
           filters:
