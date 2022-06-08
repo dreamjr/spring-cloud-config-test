@@ -10,8 +10,7 @@ spring:
               - "*"
             allowedMethods:
               - GET
-              - POST
-              - OPTIONS
+              - POST              
         httpclient:
           connect-timeout: 10000
           response-timeout: 50s
