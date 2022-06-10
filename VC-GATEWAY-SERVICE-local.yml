@@ -2,7 +2,16 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - TokenRelay             
+        - TokenRelay
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allow-credentials: true  
+            allowedMethods:
+              - GET
+              - POST              
         httpclient:
           connect-timeout: 10000
           response-timeout: 50s
