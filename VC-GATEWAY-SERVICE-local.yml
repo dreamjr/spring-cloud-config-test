@@ -70,19 +70,6 @@ spring:
               args:
                 name: vc-api-fallback
                 fallbackuri: forward:/vcApiFallBack   
-        - id: mysc-api-instance
-          uri: http://localhost:9999
-          predicates:
-            - Path=/mysc/**
-          filters:
-            - CustomAuthFilter
-            - name: RequestSize
-              args:
-                maxSize: 50000000
-            - name: Hystrix
-              args:
-                name: vc-api-fallback
-                fallbackuri: forward:/vcApiFallBack 
         - id: mvc-app
           uri: http://localhost:8101/
           predicates:
